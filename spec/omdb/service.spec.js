@@ -74,45 +74,20 @@ describe('omdb service', function () {
         return null;
     }
 
+    var omdbApi;
+
+    beforeEach(angular.mock.module('omdb'));
+
+    beforeEach(angular.mock.inject(function (_omdbApi_) {
+        omdbApi = _omdbApi_;
+    }));
+
     it('should return search movie data', function () {
-
-        //angular.mock.module({
-        //    'omdbApi': {
-        //        search: function(query) {
-        //            return movieData;
-        //        }
-        //    }
-        //});
-
-        //angular.mock.module(function ($provide) {
-        //    $provide.factory('omdbApi', function () {
-        //        return {
-        //            search: function (query) {
-        //                return movieData;
-        //            }
-        //        };
-        //    });
-        //});
-
-        angular.mock.module('omdb');
-
-        var service;
-
-        angular.mock.inject(function (omdbApi) {
-            service = omdbApi;
-        });
-
-        expect(service.search('star wars')).toEqual(movieData);
+        expect(omdbApi.search('star wars')).toEqual(movieData);
 
     });
 
     it('should return movie data by id', function() {
-        angular.mock.module('omdb');
-        var omdbApi;
-        angular.mock.inject(function(_omdbApi_){
-            omdbApi = _omdbApi_;
-        });
-
         expect(omdbApi.find('tt0076759')).toEqual(getByImdbId('tt0076759'));
 
     });
