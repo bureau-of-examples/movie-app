@@ -74,19 +74,76 @@ describe('omdb service', function () {
         return null;
     }
 
-    var omdbApi;
+    var omdbApi = {}, $httpBackend = {};
 
     beforeEach(module('omdb'));
 
-    beforeEach(inject(function (_omdbApi_) {
+    beforeEach(inject(function (_omdbApi_, _$httpBackend_) {
         omdbApi = _omdbApi_;
+        $httpBackend = _$httpBackend_;
     }));
 
+    var isOmdbUrl = function(url){
+        return url.startsWith('http://www.omdbapi.com');
+    };
+
     it('should return search movie data', function () {
-        expect(omdbApi.search('star wars')).toEqual(movieData);
+        $httpBackend
+            .when('GET', isOmdbUrl)
+            .respond(200, movieData);
+
+        var result = {};
+        omdbApi.search('star wars').then(
+            function(_result_){
+                //console.log(angular.mock.dump(_result_));
+                result = _result_;
+            }
+        );
+        $httpBackend.flush();
+        expect(result).toEqual(movieData);
     });
 
     it('should return movie data by id', function() {
-        expect(omdbApi.find('tt0076759')).toEqual(getByImdbId('tt0076759'));
+
+        var tt0076759 = getByImdbId('tt0076759');
+        $httpBackend
+            .expect('GET', isOmdbUrl)
+            .respond(200, tt0076759);
+
+        var result = {};
+        omdbApi.find('tt0076759').then(
+            function(_result_){
+                result = _result_;
+            }
+        );
+        $httpBackend.flush();
+        expect(result).toEqual(tt0076759);
     });
+
+    it('should handle error', function(){
+        $httpBackend
+            .expect('GET', isOmdbUrl)
+            .respond(500);
+
+        var result = {};
+        omdbApi.find('tt0076759').catch(function(arg){
+            console.log(angular.mock.dump(arg));
+            result = 'Error' + arg.status;
+        });
+        $httpBackend.flush();
+        expect(result).toEqual('Error500');
+    });
+
+    //This will not work because -
+    //it('$httpBackend is reset before each test', function(){
+    //    var result = {};
+    //    omdbApi.search('star wars').then(
+    //        function(_result_){
+    //            //console.log(angular.mock.dump(_result_));
+    //            result = _result_;
+    //        }
+    //    );
+    //    $httpBackend.flush();
+    //    expect(result).toEqual(movieData);
+    //});
 });

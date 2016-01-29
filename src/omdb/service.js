@@ -1,4 +1,4 @@
-(function(){
+(function(omdbModule){
 
     var movieData = {
         "Search": [{
@@ -74,15 +74,26 @@
         return null;
     }
 
-    var omdbModule = angular.module('omdb', []);
-    omdbModule.factory('omdbApi', function(){
+    omdbModule.factory('omdbApi', ['$http', function($http){
+
+        var baseUrl = 'http://www.omdbapi.com?';
+        var getMovieData = function(url){
+            return $http.get(url).then(
+                function(response) {
+                    return response.data;
+                }
+            );
+        };
+
         return {
             search: function (query) {
-                return movieData;
+                var url = baseUrl + 's=' + encodeURIComponent(query);
+                return getMovieData(url);
             },
             find: function(imdbId){
-                return getByImdbId(imdbId);
+                var url = baseUrl + 'i=' + imdbId;
+                return getMovieData(url);
             }
         };
-    });
-}());
+    }]);
+}(angular.module('omdb', [])));
