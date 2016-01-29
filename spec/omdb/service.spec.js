@@ -76,19 +76,17 @@ describe('omdb service', function () {
 
     var omdbApi;
 
-    beforeEach(angular.mock.module('omdb'));
+    beforeEach(module('omdb'));
 
-    beforeEach(angular.mock.inject(function (_omdbApi_) {
+    beforeEach(inject(function (_omdbApi_) {
         omdbApi = _omdbApi_;
     }));
 
     it('should return search movie data', function () {
         expect(omdbApi.search('star wars')).toEqual(movieData);
-
     });
 
     it('should return movie data by id', function() {
         expect(omdbApi.find('tt0076759')).toEqual(getByImdbId('tt0076759'));
-
     });
 });
