@@ -58,7 +58,7 @@ describe('movieCore', function(){
                 },
                 function(data) {
                     console.log(angular.mock.dump(data))
-                    return true;;
+                    return true;
                 }
             )
             .respond(200);
