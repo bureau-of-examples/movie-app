@@ -9,4 +9,4 @@
         };
     });
 
-}(angular.module('movieApp', [])));
+}(angular.module('movieApp')));
