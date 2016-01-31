@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="movieApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Movie App</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+
+    <style type="text/css" >
+        .container {
+            max-width: 900px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="container">
+        <div class="page-header">
+            <h1><a href="#/">MovieApp</a></h1>
+
+            <p class="lead">Your Resource for Movie Data.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div></div>
+</div>
+
+<hr>
+
+<div class="footer">
+    <div class="container">
+        <p>from @bradoncode | movie data from http://www.omdbapi.com</p>
+    </div>
+</div>
+
+<!-- bower:js -->
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-mocks/angular-mocks.js"></script>
+<script src="../bower_components/angular-resource/angular-resource.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- endbower -->
+
+<!-- inject:js -->
+<script src="/src/movie-app/app.js"></script>
+<script src="/src/movie-core/service.js"></script>
+<script src="/src/omdb/service.js"></script>
+<script src="/src/movie-app/results.controller.js"></script>
+<script src="/src/movie-app/search.controller.js"></script>
+<!-- endinject -->
+
+</body>
+</html>
