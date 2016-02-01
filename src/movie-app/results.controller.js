@@ -5,8 +5,7 @@
         var query = $location.search().q;
         omdbApi.search(query).then(
             function (data) {
-                console.log('setting data');
-                vm.results = data;
+                vm.results = data.Search;
             },
             function(err) {
                 console.log('An error has occurred during search.');

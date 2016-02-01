@@ -24,11 +24,22 @@
 
             <p class="lead">Your Resource for Movie Data.</p>
         </div>
+
+        <div ng-controller="SearchController as vm">
+            <form class="form-inline-lg" ng-submit="vm.search()">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Film title..." ng-model="vm.query">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="vm.search()" >Go!</button>
+                    </span>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 <div class="container">
-    <div></div>
+    <div ng-view=""></div>
 </div>
 
 <hr>
@@ -46,6 +57,7 @@
 <script src="../bower_components/jquery/dist/jquery.js"></script>
 <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
 <!-- endbower -->
 
 <!-- inject:js -->

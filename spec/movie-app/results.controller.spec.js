@@ -44,7 +44,7 @@ describe('Results controller', function () {
         $location.search('q', 'star wars');
         spyOn(omdbApi, 'search').and.callFake(function(){
             var deferred = $q.defer();
-            deferred.resolve(results);
+            deferred.resolve({'Search':results});
             return deferred.promise;
         });
 
