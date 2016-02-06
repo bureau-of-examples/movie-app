@@ -1,6 +1,6 @@
 (function (movieAppModule) {
 
-    movieAppModule.controller('ResultsController', ['$location', 'omdbApi',function ($location, omdbApi) {
+    movieAppModule.controller('ResultsController', ['$location', 'omdbApi','$exceptionHandler',function ($location, omdbApi, $exceptionHandler) {
         var vm = this;
         var query = $location.search().q;
         omdbApi.search(query).then(
@@ -9,7 +9,7 @@
             },
             function(err) {
                 console.log('An error has occurred during search.');
-                vm.error = err;
+                $exceptionHandler(err);
             }
         );
 

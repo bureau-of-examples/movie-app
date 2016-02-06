@@ -28,15 +28,19 @@ describe('Results controller', function () {
         }
     ];
 
-    var $controller, $location, omdbApi, $q, $rootScope;
+    var $controller, $location, omdbApi, $q, $rootScope, $exceptionHandler;
     beforeEach(module('movieApp'));
-    beforeEach(angular.mock.inject(function (_$controller_, _omdbApi_, _$location_, _$q_, _$rootScope_) {
+    beforeEach(module(function($exceptionHandlerProvider){
+        $exceptionHandlerProvider.mode('log');
+    }));
+    beforeEach(angular.mock.inject(function (_$controller_, _omdbApi_, _$location_, _$q_, _$rootScope_, _$exceptionHandler_) {
         console.log('injecting things...');
         $controller = _$controller_;
         $location = _$location_;
         omdbApi = _omdbApi_;
         $q = _$q_;
         $rootScope = _$rootScope_;
+        $exceptionHandler = _$exceptionHandler_;
     }));
 
     it('should load search results', function () {
@@ -67,10 +71,11 @@ describe('Results controller', function () {
             return deferred.promise;
         });
 
-        var $this = $controller('ResultsController', {$location: $location, omdbApi: omdbApi}, {});
-        $rootScope.$apply(); //needed to trigger deferred then.
-        expect($this.error).toBe(searchError);
+        //expect(function(){
+            $controller('ResultsController', {$location: $location, omdbApi: omdbApi}, {});
+            $rootScope.$apply(); //needed to trigger deferred then.
+            expect($exceptionHandler.errors.length).toEqual(1);
+        //}).toThrow(searchError);
     });
-
 
 });
