@@ -19,12 +19,14 @@
                 result.isOpen = false;
             } else {
                 if(result.data) {
+                    console.log('expending result ' + index);
                     result.isOpen = true;
                 } else {
                     omdbApi.find(id)
                         .then(function(data){
                             result.data = data;
                             result.isOpen = true;
+                            console.log('result data retrieved: ' + index);
                            // $scope.$digest();
                         });
                 }

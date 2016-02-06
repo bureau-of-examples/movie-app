@@ -6,7 +6,8 @@ describe('Movie Result Directive', function () {
         "imdbID": "tt0121766",
         "Type": "movie",
         "Poster": "http://ia.media-imdb.com/images/M/MV5BNTc4MTc3NTQ5OF5BMl5BanBnXkFtZTcwOTg0NjI4NA@@._V1_SX300.jpg",
-        "Plot": 'a long long time ago in a galaxy far far away...'
+        "Plot": 'a long long time ago in a galaxy far far away...',
+        "Released" : '2005-12-23'
     };
 
     beforeEach(module('movieApp'));
