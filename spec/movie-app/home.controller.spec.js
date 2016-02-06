@@ -8,17 +8,14 @@ describe('Home Controller', function () {
 
     //mock PopularMovies.get
     beforeEach(inject(function (_PopularMovies_, $q) {
-        spyOn(_PopularMovies_, 'get').and.callFake(function () {
-            var deferred = $q.defer();
-            deferred.resolve(results);
-
-            return deferred.promise;
+        spyOn(_PopularMovies_, 'query').and.callFake(function (callback) {
+            callback(results);
         });
     }));
 
     //mock omdbApi.find
     beforeEach(inject(function (_omdbApi_, $q) {
-        var index = 0; console.log('tttt');
+        var index = 0;
         spyOn(_omdbApi_, 'find').and.callFake(function () {
             var deferred = $q.defer();
             deferred.resolve(results[index]);
@@ -42,7 +39,7 @@ describe('Home Controller', function () {
     }));
 
     it('should rotate movies every 5 seconds', function () {
-        var index = 0; console.log('ssss');
+        var index = 0;
         expect($scope.result.Title).toBe(results[0].Title);
         $interval.flush(5000);
         expect($scope.result.Title).toBe(results[1].Title);
